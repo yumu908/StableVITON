@@ -50,7 +50,7 @@ For both training and inference, the following dataset structure is required:
 train
 |-- image
 |-- image-densepose
-|-- agnostic
+|-- agnostic-v3.2
 |-- agnostic-mask
 |-- cloth
 |-- cloth_mask
@@ -59,7 +59,7 @@ train
 test
 |-- image
 |-- image-densepose
-|-- agnostic
+|-- agnostic-v3.2
 |-- agnostic-mask
 |-- cloth
 |-- cloth_mask
