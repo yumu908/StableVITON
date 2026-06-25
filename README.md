@@ -1,5 +1,6 @@
-# [CVPR2024] StableVITON: Learning Semantic Correspondence with Latent Diffusion Model for Virtual Try-On 
-***** New follow-up research by our team is available at https://github.com/rlawjdghek/PromptDresser *****
+# [CVPR2024] StableVITON: Learning Semantic Correspondence with Latent Diffusion Model for Virtual Try-On
+
+***** New follow-up research by our team is available at <https://github.com/rlawjdghek/PromptDresser> *****
 
 This repository is the official implementation of [StableVITON](https://arxiv.org/abs/2312.01725)
 
@@ -12,11 +13,13 @@ This repository is the official implementation of [StableVITON](https://arxiv.or
 ![teaser](assets/teaser.png)&nbsp;
 
 ## TODO List
+
 - [x] ~~Inference code~~
 - [x] ~~Release model weights~~
 - [x] ~~Training code~~
 
 ## Environments
+
 ```bash
 git clone https://github.com/rlawjdghek/StableVITON
 cd StableVITON
@@ -42,6 +45,7 @@ conda install -c anaconda ipython -y
 ```
 
 ## Weights and Data
+
 Our [checkpoint](https://kaistackr-my.sharepoint.com/:f:/g/personal/rlawjdghek_kaist_ac_kr/EjzAZHJu9MlEoKIxG4tqPr0BM_Ry20NHyNw5Sic2vItxiA?e=5mGa1c) on VITONHD have been released! <br>
 You can download the VITON-HD dataset from [here](https://github.com/shadow2496/VITON-HD).<br>
 For both training and inference, the following dataset structure is required:
@@ -66,9 +70,11 @@ test
 ```
 
 ## Preprocessing
+
 The VITON-HD dataset serves as a benchmark and provides an agnostic mask. However, you can attempt virtual try-on on **arbitrary images** using segmentation tools like [SAM](https://github.com/facebookresearch/segment-anything). Please note that for densepose, you should use the same densepose model as used in VITON-HD.
 
 ## Inference
+
 ```bash
 #### paired
 CUDA_VISIBLE_DEVICES=4 python inference.py \
@@ -103,9 +109,10 @@ CUDA_VISIBLE_DEVICES=4 python inference.py \
  --save_dir <save directory>
 ```
 
-You can also preserve the unmasked region by '--repaint' option. 
+You can also preserve the unmasked region by '--repaint' option.
 
 ## Training
+
 For VITON training, we increased the first block of U-Net from 9 to 13 channels (add zero conv) based on the Paint-by-Example (PBE) model. Therefore, you should download the modified checkpoint (named as 'VITONHD_PBE_pose.ckpt') from the [Link](https://kaistackr-my.sharepoint.com/:f:/g/personal/rlawjdghek_kaist_ac_kr/EjzAZHJu9MlEoKIxG4tqPr0BM_Ry20NHyNw5Sic2vItxiA?e=5mGa1c) and place it in the './ckpts/' folder first.
 
 Additionally, for more refined person texture, we utilized a VAE fine-tuned on the VITONHD dataset. You should also download the checkpoint (named as VITONHD_VAE_finetuning.ckpt') from the [Link](https://kaistackr-my.sharepoint.com/:f:/g/personal/rlawjdghek_kaist_ac_kr/EjzAZHJu9MlEoKIxG4tqPr0BM_Ry20NHyNw5Sic2vItxiA?e=5mGa1c) and place it in the './ckpts/' folder.
@@ -129,7 +136,9 @@ CUDA_VISIBLE_DEVICES=5,6 python train.py \
 ```
 
 ## Citation
+
 If you find our work useful for your research, please cite us:
+
 ```
 @inproceedings{kim2024stableviton,
   title={Stableviton: Learning semantic correspondence with latent diffusion model for virtual try-on},
@@ -143,4 +152,9 @@ If you find our work useful for your research, please cite us:
 **Acknowledgements** Sunghyun Park is the corresponding author.
 
 ## License
-Licensed under the CC BY-NC-SA 4.0 license (https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode).
+
+Licensed under the CC BY-NC-SA 4.0 license (<https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode>).
+
+```
+python inference.py --config_path ./configs/VITONHD.yaml --model_load_path ./ckpts/VITONHD.ckpt --data_root_dir ./datasets --save_dir ./samples --batch_size 1 --unpair
+```

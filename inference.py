@@ -27,6 +27,7 @@ def build_args():
     parser.add_argument("--img_H", type=int, default=512)
     parser.add_argument("--img_W", type=int, default=384)
     parser.add_argument("--eta", type=float, default=0.0)
+    parser.add_argument("--num_workers", type=int, default=0)
     args = parser.parse_args()
     return args
 
@@ -58,7 +59,7 @@ def main(args):
         is_test=True,
         is_sorted=True
     )
-    dataloader = DataLoader(dataset, num_workers=4, shuffle=False, batch_size=batch_size, pin_memory=True)
+    dataloader = DataLoader(dataset, num_workers=args.num_workers, shuffle=False, batch_size=batch_size, pin_memory=True)
 
     shape = (4, img_H//8, img_W//8) 
     save_dir = opj(args.save_dir, "unpair" if args.unpair else "pair")
